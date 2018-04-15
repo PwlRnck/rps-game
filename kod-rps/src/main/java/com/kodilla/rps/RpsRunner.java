@@ -21,7 +21,7 @@ public class RpsRunner {
         int numberOfRounds = game.getInputData().getNumberOfRounds();
         int roundNumber = Math.max(score.getScorePlayer(), score.getScoreComputer());
 
-        while(roundNumber < numberOfRounds) {
+        while (roundNumber < numberOfRounds) {
 
             String movePlayerCode = dialogue.makeAMoveDialogue();
             movePlayerCode = dialogue.quitConfirmation(movePlayerCode);

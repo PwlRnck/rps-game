@@ -29,4 +29,5 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile project(':kod-rps')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile('com.google.code.gson:gson:2.8.2')
 }

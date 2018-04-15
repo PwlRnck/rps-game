@@ -8,12 +8,12 @@ public class InputDataDto {
         return name;
     }
 
-    public int getNumberOfRounds() {
-        return numberOfRounds;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getNumberOfRounds() {
+        return numberOfRounds;
     }
 
     public void setNumberOfRounds(int numberOfRounds) {

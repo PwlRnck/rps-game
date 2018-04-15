@@ -19,15 +19,16 @@ public class GameController {
     @Autowired
     GameMapper gameMapper;
 
-
-    @RequestMapping(method = RequestMethod.POST, value = "newGame", consumes = APPLICATION_JSON_VALUE)
+    //@RequestMapping(method = RequestMethod.POST, value = "newGame")
+    @PostMapping(value = "newGame")
     public GameDto newGame(@RequestBody InputDataDto inputDataDto) {
         InputData inputData = gameMapper.mapToInputData(inputDataDto);
-        Game game = new Game(inputData, new Score(0,0));
+        Game game = new Game(inputData, new Score(0, 0));
         return gameMapper.mapToGameDto(game);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "playGame", consumes = APPLICATION_JSON_VALUE)
+    //@RequestMapping(method = RequestMethod.POST, value = "playGame")
+    @PostMapping(value = "playGame")
     public GameDto playGame(@RequestBody GameDto gameDto) {
         Game game = gameMapper.mapToGame(gameDto);
         game = game.playARound(game);

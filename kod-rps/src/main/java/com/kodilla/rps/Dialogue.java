@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Dialogue {
 
+    private static final int GAME_OPTIONS_NUMBER = 3;
     private Scanner scanner = new Scanner(System.in);
     private Random random = new Random();
     private InputData inputData;
@@ -14,22 +15,23 @@ public class Dialogue {
     }
 
     public String finalDialogue() {
-        System.out.println("\nWould you like to play another game (" + FunctionKeys.NEW.key() + ") or quit the game (" + FunctionKeys.END.key() + ")?");
-        return scanner.nextLine().toString();
+        System.out.printf("%nWould you like to play another game (%s) or quit the game (%s)?%n",
+                FunctionKeys.NEW.key(), FunctionKeys.END.key());
+        return scanner.nextLine();
     }
 
     public String makeAMoveDialogue() {
-        System.out.println("\n" + inputData.getName() + ", please make a move.");
-        return scanner.nextLine().toString();
+        System.out.printf("%n%s, please make a move.%n", inputData.getName());
+        return scanner.nextLine();
     }
 
     public String quitDialogue() {
         String name = inputData.getName();
 
-        System.out.println(name + ", do you really want to quit (y/n)?");
-        String movePlayerCode = scanner.nextLine().toString();
-        if (movePlayerCode.equals(FunctionKeys.NEW.key())) {
-            System.out.println("\n" + name + ", please make a move.");
+        System.out.printf("%s, do you really want to quit (y/n)?%n", name);
+        String movePlayerCode = scanner.nextLine();
+        if (movePlayerCode.equals("n")) {
+            System.out.printf("%n%s, please make a move.%n", name);
             movePlayerCode = scanner.nextLine();
         } else {
             quit();
@@ -39,7 +41,7 @@ public class Dialogue {
 
     public String quitConfirmation(String movePlayerCode) {
 
-        while(movePlayerCode.equals(FunctionKeys.END.key()) || movePlayerCode.equals(FunctionKeys.NEW.key())) {
+        while (movePlayerCode.equals(FunctionKeys.END.key()) || movePlayerCode.equals(FunctionKeys.NEW.key())) {
             if (movePlayerCode.equals(FunctionKeys.END.key()))
                 movePlayerCode = quitDialogue();
             else
@@ -52,10 +54,10 @@ public class Dialogue {
     public String restartDialogue() {
         String name = inputData.getName();
 
-        System.out.println(name + ", do you really want to restart the game (y/n)?");
-        String movePlayerCode = scanner.nextLine().toString();
-        if (movePlayerCode.equals(FunctionKeys.NEW.key())) {
-            System.out.println("\n" + name + ", please make a move.");
+        System.out.printf("%s, do you really want to restart the game (y/n)?%n", name);
+        String movePlayerCode = scanner.nextLine();
+        if (movePlayerCode.equals("n")) {
+            System.out.printf("%n%s, please make a move.%n", name);
             movePlayerCode = scanner.nextLine();
         } else {
             RpsRunner.main(null);
@@ -73,14 +75,15 @@ public class Dialogue {
     }
 
     private int[] foulPlayCodesArray(String movePlayerCode) {
-        return new int[] {Integer.parseInt(movePlayerCode),
-                Integer.parseInt(movePlayerCode) + 1 <= 3 ? Integer.parseInt(movePlayerCode) + 1 : 1,
-                Integer.parseInt(movePlayerCode) + 1 <= 3 ? Integer.parseInt(movePlayerCode) + 1 : 1,
-                Integer.parseInt(movePlayerCode) + 2 > 3 ? Integer.parseInt(movePlayerCode) - 1 : 1};
+        int codeAsInteger = Integer.parseInt(movePlayerCode);
+        return new int[]{codeAsInteger,
+                codeAsInteger + 1 <= GAME_OPTIONS_NUMBER ? codeAsInteger + 1 : 1,
+                codeAsInteger + 1 <= GAME_OPTIONS_NUMBER ? codeAsInteger + 1 : 1,
+                codeAsInteger + 2 > GAME_OPTIONS_NUMBER ? codeAsInteger - 1 : 1};
     }
 
     public void quit() {
-        System.out.println("Thank you " + inputData.getName() + " for playing the game.");
+        System.out.printf("Thank you %s for playing the game.%n", inputData.getName());
         System.exit(0);
     }
 }

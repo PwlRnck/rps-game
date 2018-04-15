@@ -4,20 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Game {
+    private Map<String, String> functionKeys = new HashMap<>();
     private Score score;
     private InputData inputData;
     private Dialogue dialogue;
-    public Map<String, String> functionKeys = new HashMap<>();
     private String movePlayerCode;
     private String moveComputer;
     private String info;
 
     public Game(InputData inputData, Score score) {
-        functionKeys.put(FunctionKeys.STONE.key(), FunctionKeys.STONE.keyFunction());
-        functionKeys.put(FunctionKeys.PAPER.key(), FunctionKeys.PAPER.keyFunction());
-        functionKeys.put(FunctionKeys.SCISSORS.key(), FunctionKeys.SCISSORS.keyFunction());
-        functionKeys.put(FunctionKeys.END.key(), FunctionKeys.END.keyFunction());
-        functionKeys.put(FunctionKeys.NEW.key(), FunctionKeys.NEW.keyFunction());
+
+        for (FunctionKeys value : FunctionKeys.values()) {
+            functionKeys.put(value.key(), value.keyFunction());
+        }
+
         this.inputData = inputData;
         this.score = score;
         dialogue = new Dialogue(inputData);
@@ -42,7 +42,7 @@ public class Game {
         info = print.printResult(movePlayer, moveComputer, this);
 
         return this;
-   }
+    }
 
     public void info() {
         System.out.println("\nHere is the list of keys associated with the game's options:");
